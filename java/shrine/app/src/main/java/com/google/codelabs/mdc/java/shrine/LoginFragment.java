@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
@@ -36,6 +37,11 @@ public class LoginFragment extends Fragment {
                     passwordTextInput.setError(getString(R.string.shr_error_password));
                 } else {
                     passwordTextInput.setError(null); // Clear the error
+                    ((NavigationHost) getActivity()).navigateTo(new ProductGridFragment(), false); // Navigate to the next Fragment
+
+                   /* The false parameter in navigateTo() tells the activity to not add the current fragment to the backstack,
+                   so the user will not be able to return to the login screen using their back key.
+                    */
                 }
             }
         });
@@ -62,7 +68,7 @@ public class LoginFragment extends Fragment {
    authentication of the username and password. This would be connected to the MYSQL Database.
 */
     private boolean isPasswordValid(@Nullable Editable text) {
-        return text != null && text.length() >= 8;
+        return (text != null) && (text.length() >= 8);
     }
 
 
